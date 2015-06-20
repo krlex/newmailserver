@@ -23,10 +23,10 @@ docker run -it -p=110:110 -p=25:25 -p=995:995 -p=80:80 -p=443:443  -p=587:587 -p
 To run installation we have to:
 - Update the package lists from the repositories ```apt-get update``` 
 - Install git if we don't have it ```apt-get install git -y ```
-- Clone the "easymail" repository ```git clone https://github.com/GyunerZeki/easymail.git /easymail```
+- Clone the "easymail" repository ```git clone https://github.com/mailjet/easymail.git /easymail```
 - Run bash script ```bash /easymail/install.sh```
 
 or just run:
 ```
-apt-get update && apt-get install git -y && git clone https://github.com/GyunerZeki/easymail.git /easymail && bash /easymail/install.sh
+apt-get update && apt-get install git -y && git clone https://github.com/mailjet/easymail.git /easymail && bash /easymail/install.sh
 ```
