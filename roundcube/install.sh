@@ -2,7 +2,7 @@
 
 ROUNDCUBE_DIR="$CURRENT_DIR/roundcube"
 
-apt-get install nginx php5-fpm php5-mcrypt php5-intl php5-mysql -y
+apt-get install nginx php-fpm mcrypt php-intl php-mysql -y
 
 if [ $IS_ON_DOCKER == true ]; then
 	apt-get install  wget -y
@@ -14,12 +14,12 @@ set_hostname /etc/nginx/sites-enabled/roundcube
 sed -i "s#__EASYMAIL_SSL_CA_BUNDLE_FILE__#$SSL_CA_Bundle_File#g" /etc/nginx/sites-enabled/roundcube
 sed -i "s#__EASYMAIL_SSL_PRIVATE_KEY_FILE__#$SSL_Private_Key_File#g" /etc/nginx/sites-enabled/roundcube
 
-cd /tmp && wget http://netcologne.dl.sourceforge.net/project/roundcubemail/roundcubemail/1.1.1/roundcubemail-1.1.1-complete.tar.gz
-tar -xvzf roundcubemail-1.1.1-complete.tar.gz
+cd /tmp && wget https://github.com/roundcube/roundcubemail/releases/download/1.6.5/roundcubemail-1.6.5.tar.gz
+tar -xvzf roundcubemail-1.6.5.tar.gz
 mkdir /usr/share/roundcubemail
-cp -r roundcubemail-1.1.1/ /usr/share/nginx/roundcubemail
+cp -r roundcubemail-1.6.5/ /usr/share/nginx/roundcubemail
 cd /usr/share/nginx/roundcubemail/
-sed -i "s/;cgi.fix_pathinfo=.*/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
+sed -i "s/;cgi.fix_pathinfo=.*/cgi.fix_pathinfo=0/" /etc/php/8.1/fpm/php.ini
 
 mysqladmin -u$ROOT_MYSQL_USERNAME -p$ROOT_MYSQL_PASSWORD create $ROUNDCUBE_MYSQL_DATABASE	
 mysql -h $MYSQL_HOSTNAME -u$ROOT_MYSQL_USERNAME -p$ROOT_MYSQL_PASSWORD << EOF
@@ -49,5 +49,5 @@ sed -i "s/__EASYMAIL_ROUNDCUBE_MYSQL_USERNAME__/$ROUNDCUBE_MYSQL_USERNAME/g" con
 sed -i "s/__EASYMAIL_ROUNDCUBE_MYSQL_PASSWORD__/$ROUNDCUBE_MYSQL_PASSWORD/g" config.inc.php
 sed -i "s/__EASYMAIL_MYSQL_DATABASE__/$MYSQL_DATABASE/g" config.inc.php
 
-service php5-fpm restart
+service php-fpm restart
 service nginx restart

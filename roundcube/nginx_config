@@ -1,12 +1,12 @@
 server {
 	listen 80;
-	server_name __EASYMAIL_HOSTNAME__;
-	return 302 https://__EASYMAIL_HOSTNAME__$request_uri;
+	server_name mail.__EASYMAIL_HOSTNAME__;
+	return 302 https://mail.__EASYMAIL_HOSTNAME__$request_uri;
 }
 
 server {
 	listen 443;
-	server_name __EASYMAIL_HOSTNAME__;
+	server_name mail.__EASYMAIL_HOSTNAME__;
 	
 	ssl on;
 	ssl_certificate __EASYMAIL_SSL_CA_BUNDLE_FILE__;
@@ -26,7 +26,7 @@ server {
 
 	location ~ \.php$ {
 		try_files $uri =404;
-		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		fastcgi_pass unix:/var/run/php-fpm.sock;
 		fastcgi_index index.php;
 		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
 		include fastcgi_params;

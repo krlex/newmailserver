@@ -85,6 +85,7 @@ apt-get update
 bash $CURRENT_DIR/mysql/install.sh
 bash $CURRENT_DIR/postfix/install.sh
 bash $CURRENT_DIR/dovecot/install.sh
+touch /etc/dovecot/dovecot.pem
 bash $CURRENT_DIR/roundcube/install.sh
 bash $CURRENT_DIR/autoconfig/install.sh
 bash $CURRENT_DIR/spamassassin/install.sh
@@ -99,7 +100,7 @@ if [ $IS_ON_DOCKER == true ]; then
 ==========
 service mysql start
 service nginx start
-service php5-fpm start
+service php-fpm start
 /etc/init.d/postfix start
 /usr/sbin/dovecot
 service spamassassin start
@@ -107,5 +108,5 @@ service spamassassin start
 	"
 fi
 
-bash $CURRENT_DIR/event/after-install.sh
+#bash $CURRENT_DIR/event/after-install.sh
 
